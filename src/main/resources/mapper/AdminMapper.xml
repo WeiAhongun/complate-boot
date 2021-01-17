@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shangma.cn.mapper.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.shangma.cn.entity.Admin">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="admin_account" jdbcType="VARCHAR" property="adminAccount" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="admin_email" jdbcType="VARCHAR" property="adminEmail" />
+    <result column="admin_phone" jdbcType="VARCHAR" property="adminPhone" />
+    <result column="admin_sex" jdbcType="CHAR" property="adminSex" />
+    <result column="admin_avatar" jdbcType="VARCHAR" property="adminAvatar" />
+    <result column="admin_status" jdbcType="BIT" property="adminStatus" />
+    <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
+    <result column="admin_password" jdbcType="VARCHAR" property="adminPassword" />
+    <result column="admin_code" jdbcType="VARCHAR" property="adminCode" />
+    <result column="admin_address" jdbcType="VARCHAR" property="adminAddress" />
+    <result column="admin_salary" jdbcType="DECIMAL" property="adminSalary" />
+    <result column="admin_dept" jdbcType="VARCHAR" property="adminDept" />
+    <result column="del_flag" jdbcType="BIT" property="delFlag" />
+    <result column="creator_id" jdbcType="BIGINT" property="creatorId" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_id" jdbcType="BIGINT" property="updateId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, admin_account, nick_name, admin_email, admin_phone, admin_sex, admin_avatar,
+    admin_status, admin_name, admin_password, admin_code, admin_address, admin_salary,
+    admin_dept, del_flag, creator_id, add_time, update_id, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.shangma.cn.entity.AdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_admin
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_admin
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shangma.cn.entity.AdminExample">
+    delete from t_admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shangma.cn.entity.Admin">
+    <selectKey keyProperty="id" keyColumn="id" order="AFTER" resultType="long">
+      select last_insert_id()
+    </selectKey>
+    insert into t_admin (id, admin_account, nick_name,
+      admin_email, admin_phone, admin_sex,
+      admin_avatar, admin_status, admin_name,
+      admin_password, admin_code, admin_address,
+      admin_salary, admin_dept, del_flag,
+      creator_id, add_time, update_id,
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{adminAccount,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
+      #{adminEmail,jdbcType=VARCHAR}, #{adminPhone,jdbcType=VARCHAR}, #{adminSex,jdbcType=CHAR},
+      #{adminAvatar,jdbcType=VARCHAR}, #{adminStatus,jdbcType=BIT}, #{adminName,jdbcType=VARCHAR},
+      #{adminPassword,jdbcType=VARCHAR}, #{adminCode,jdbcType=VARCHAR}, #{adminAddress,jdbcType=VARCHAR},
+      #{adminSalary,jdbcType=DECIMAL}, #{adminDept,jdbcType=VARCHAR}, #{delFlag,jdbcType=BIT},
+      #{creatorId,jdbcType=BIGINT}, #{addTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=BIGINT},
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shangma.cn.entity.Admin">
+    insert into t_admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="adminAccount != null">
+        admin_account,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="adminEmail != null">
+        admin_email,
+      </if>
+      <if test="adminPhone != null">
+        admin_phone,
+      </if>
+      <if test="adminSex != null">
+        admin_sex,
+      </if>
+      <if test="adminAvatar != null">
+        admin_avatar,
+      </if>
+      <if test="adminStatus != null">
+        admin_status,
+      </if>
+      <if test="adminName != null">
+        admin_name,
+      </if>
+      <if test="adminPassword != null">
+        admin_password,
+      </if>
+      <if test="adminCode != null">
+        admin_code,
+      </if>
+      <if test="adminAddress != null">
+        admin_address,
+      </if>
+      <if test="adminSalary != null">
+        admin_salary,
+      </if>
+      <if test="adminDept != null">
+        admin_dept,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="creatorId != null">
+        creator_id,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateId != null">
+        update_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="adminAccount != null">
+        #{adminAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminEmail != null">
+        #{adminEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPhone != null">
+        #{adminPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adminSex != null">
+        #{adminSex,jdbcType=CHAR},
+      </if>
+      <if test="adminAvatar != null">
+        #{adminAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStatus != null">
+        #{adminStatus,jdbcType=BIT},
+      </if>
+      <if test="adminName != null">
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null">
+        #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminCode != null">
+        #{adminCode,jdbcType=VARCHAR},
+      </if>
+      <if test="adminAddress != null">
+        #{adminAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="adminSalary != null">
+        #{adminSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="adminDept != null">
+        #{adminDept,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=BIT},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        #{updateId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shangma.cn.entity.AdminExample" resultType="java.lang.Long">
+    select count(*) from t_admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_admin
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.adminAccount != null">
+        admin_account = #{record.adminAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickName != null">
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminEmail != null">
+        admin_email = #{record.adminEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminPhone != null">
+        admin_phone = #{record.adminPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminSex != null">
+        admin_sex = #{record.adminSex,jdbcType=CHAR},
+      </if>
+      <if test="record.adminAvatar != null">
+        admin_avatar = #{record.adminAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminStatus != null">
+        admin_status = #{record.adminStatus,jdbcType=BIT},
+      </if>
+      <if test="record.adminName != null">
+        admin_name = #{record.adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminPassword != null">
+        admin_password = #{record.adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminCode != null">
+        admin_code = #{record.adminCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminAddress != null">
+        admin_address = #{record.adminAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminSalary != null">
+        admin_salary = #{record.adminSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="record.adminDept != null">
+        admin_dept = #{record.adminDept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delFlag != null">
+        del_flag = #{record.delFlag,jdbcType=BIT},
+      </if>
+      <if test="record.creatorId != null">
+        creator_id = #{record.creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.addTime != null">
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateId != null">
+        update_id = #{record.updateId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_admin
+    set id = #{record.id,jdbcType=BIGINT},
+      admin_account = #{record.adminAccount,jdbcType=VARCHAR},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      admin_email = #{record.adminEmail,jdbcType=VARCHAR},
+      admin_phone = #{record.adminPhone,jdbcType=VARCHAR},
+      admin_sex = #{record.adminSex,jdbcType=CHAR},
+      admin_avatar = #{record.adminAvatar,jdbcType=VARCHAR},
+      admin_status = #{record.adminStatus,jdbcType=BIT},
+      admin_name = #{record.adminName,jdbcType=VARCHAR},
+      admin_password = #{record.adminPassword,jdbcType=VARCHAR},
+      admin_code = #{record.adminCode,jdbcType=VARCHAR},
+      admin_address = #{record.adminAddress,jdbcType=VARCHAR},
+      admin_salary = #{record.adminSalary,jdbcType=DECIMAL},
+      admin_dept = #{record.adminDept,jdbcType=VARCHAR},
+      del_flag = #{record.delFlag,jdbcType=BIT},
+      creator_id = #{record.creatorId,jdbcType=BIGINT},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      update_id = #{record.updateId,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shangma.cn.entity.Admin">
+    update t_admin
+    <set>
+      <if test="adminAccount != null">
+        admin_account = #{adminAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminEmail != null">
+        admin_email = #{adminEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPhone != null">
+        admin_phone = #{adminPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adminSex != null">
+        admin_sex = #{adminSex,jdbcType=CHAR},
+      </if>
+      <if test="adminAvatar != null">
+        admin_avatar = #{adminAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStatus != null">
+        admin_status = #{adminStatus,jdbcType=BIT},
+      </if>
+      <if test="adminName != null">
+        admin_name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null">
+        admin_password = #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminCode != null">
+        admin_code = #{adminCode,jdbcType=VARCHAR},
+      </if>
+      <if test="adminAddress != null">
+        admin_address = #{adminAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="adminSalary != null">
+        admin_salary = #{adminSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="adminDept != null">
+        admin_dept = #{adminDept,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=BIT},
+      </if>
+      <if test="creatorId != null">
+        creator_id = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        update_id = #{updateId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shangma.cn.entity.Admin">
+    update t_admin
+    set admin_account = #{adminAccount,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      admin_email = #{adminEmail,jdbcType=VARCHAR},
+      admin_phone = #{adminPhone,jdbcType=VARCHAR},
+      admin_sex = #{adminSex,jdbcType=CHAR},
+      admin_avatar = #{adminAvatar,jdbcType=VARCHAR},
+      admin_status = #{adminStatus,jdbcType=BIT},
+      admin_name = #{adminName,jdbcType=VARCHAR},
+      admin_password = #{adminPassword,jdbcType=VARCHAR},
+      admin_code = #{adminCode,jdbcType=VARCHAR},
+      admin_address = #{adminAddress,jdbcType=VARCHAR},
+      admin_salary = #{adminSalary,jdbcType=DECIMAL},
+      admin_dept = #{adminDept,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=BIT},
+      creator_id = #{creatorId,jdbcType=BIGINT},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,27 @@
+# 数据源信息
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.11.243:3306/huige?serverTimezone=UTC&charsetEncoding=utf8
+    username: root
+    password: root
+  mail:
+    host: smtp.163.com
+    username: a1293233730@163.com
+    password: NHDSUDADYBYOEEYF
+  task:
+    execution:
+      pool:
+        core-size: 50
+logging:
+  level:
+    com:
+      shangma :
+        cn:
+          mapper: debug
+  file:
+    name: E:\\user.log
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+server:
+  port: 9000
